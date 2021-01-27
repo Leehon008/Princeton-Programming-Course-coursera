@@ -18,11 +18,13 @@ public class RightTriangle {
         int a = Integer.parseInt(args[0]);
         int b = Integer.parseInt(args[1]);
         int c = Integer.parseInt(args[2]);
+        boolean isRightTriangle;
 
         int d = (a * a) + (b * b);
         int e = c * c;
-        System.out.println("true");
-        // System.out.println(d == e ? "True" : "false");
+        
+        isRightTriangle = (e == d);
+        System.out.println(isRightTriangle);
 
     }
 }
