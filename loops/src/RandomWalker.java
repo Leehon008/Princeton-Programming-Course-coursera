@@ -8,27 +8,24 @@
 
 public class RandomWalker {
 
-    public static void main(String[] args) {
+    public static void main(String args[]) {
 
-        int steps = Integer.parseInt(args[0]);
-        int X_axis = 0;
-        int Y_axis = 0;
-        int r = 0;
+        int r = Integer.parseInt(args[0]);
+        int x = 0;
+        int y = 0;
+        int step = 0;
+        double R;
 
-        for (int i = 0; i < steps; i++) {
-            double rand = Math.random();
-            if (rand < 0.25)
-                X_axis++;
-            else if (rand < 0.50)
-                Y_axis--;
-            else if (rand < 0.75)
-                X_axis--;
-            else if (rand < 1.0)
-                Y_axis++;
-            System.out.println("(" + X_axis + ", " + Y_axis + ")");
+        while(Math.abs(x) + Math.abs(y) < r ){
+            step++;
+            R = Math.random();
+            if(R <= 0.25) x++;
+            else if (R <= 0.50) x--;
+            else if (R <= 0.75) y++;
+            else if (R <= 1.00) y--;
+
+            System.out.println("(" + x + ", " + y + ")" );
         }
-
-        r = Math.abs(X_axis) + Math.abs(Y_axis);
-        System.out.println("Steps = " + r);
+        System.out.println("steps = " + step);
     }
 }
