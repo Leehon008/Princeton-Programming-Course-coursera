@@ -13,7 +13,7 @@ public class RandomWalkers {
 
         int r = Integer.parseInt(args[0]);
         int trials =  Integer.parseInt(args[1]);
-        int sumOfSteps = 0;
+        int totalSteps = 0;
         double averageSteps = 0;
 
         for(int i = 1 ; i <= trials ; i++){
@@ -43,8 +43,9 @@ public class RandomWalkers {
                 }
                 distance = Math.abs(x) + Math.abs(y);
             }
-            sumOfSteps = sumOfSteps + steps;
+            totalSteps = totalSteps + steps;
         }
-        averageSteps = ((double)sumOfSteps / trials);
+        averageSteps = ((double)totalSteps / trials);
         System.out.println("average steps " + averageSteps);
-    }}
+    }
+}
