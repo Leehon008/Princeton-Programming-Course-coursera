@@ -1,29 +1,21 @@
-package com.leehon008;
-
-/*
-Write a program RightTriangle that takes three int command-line arguments
-and determines whether they constitute the side lengths of some right triangle.
-The following two conditions are necessary and sufficient:
-Each integer must be positive.
-The sum of the squares of two of the integers must equal the square of the third integer.
-java RightTriangle 3 4 5
-true
-*/
 public class RightTriangle {
-
-    public RightTriangle() {
-    }
-
     public static void main(String[] args) {
+
+        int a2, b2, c2, d2, e2, f2;
+        boolean isRightTriangle;
+
         int a = Integer.parseInt(args[0]);
         int b = Integer.parseInt(args[1]);
         int c = Integer.parseInt(args[2]);
-        boolean isRightTriangle;
 
-        int d = (a * a) + (b * b);
-        int e = c * c;
-        
-        isRightTriangle = (e == d);
+        a2 = (a * a) + (b * b);
+        b2 = (c * c);
+        c2 = (a * a) + (c * c);
+        d2 = (b * b);
+        e2 = (b * b) + (c * c);
+        f2 = (a * a);
+
+        isRightTriangle = (a > 0 && b > 0 && c > 0 && a2 == b2 || c2 == d2 || e2 == f2);
         System.out.println(isRightTriangle);
 
     }
