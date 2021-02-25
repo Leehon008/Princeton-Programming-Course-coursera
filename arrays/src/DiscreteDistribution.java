@@ -50,18 +50,6 @@ public class DiscreteDistribution {
             sum += freq[i];
             event = i;
         }
-//// Produce a sequence.
-//        List<Integer> allIndices = new ArrayList<>();
-//        for (int i = 0; i < freq.length; i += 1) allIndices.add(i);
-//
-//// Shuffle the sequence in place.
-//        Collection.shuffle(allIndices);
-//
-//// Take a sublist of m elements, and use it.
-//        List<Integer> indices = allIndices.subList(0, m - 1);
-//        for (Integer ix : indices) {
-//            // Here ix will be a unique random index into freq, use it.
-//        }
         System.out.println(event);
     }
 }
