@@ -27,6 +27,7 @@ public class ThueMorse {
             morse += t;
         }
         System.out.println(thue);
+        System.out.println();
     }
 
 }

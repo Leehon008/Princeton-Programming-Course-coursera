@@ -10,14 +10,14 @@ public class Birthday {
 
     public static void main(String[] args) {
 
-        int days = Integer.parseInt(args[0]);  //days of the people
+        int days = Integer.parseInt(args[0]);  // days of the people
         int trails = Integer.parseInt(args[1]);
         int[] counter = new int[days + 2];
         double fraction = 0.0;
         int k = 1;
         counter[0] = 0;
 
-        System.out.println(1 + " " + 0 + " " + fraction); //initial experiment
+        System.out.println(1 + " " + 0 + " " + fraction); // initial experiment
 
         while (fraction < 0.5) {
 
