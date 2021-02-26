@@ -1,55 +1,30 @@
-
-/******************************************************************************
- *  Compilation:  javac DiscreteDistribution.java
- *  Execution:    java DiscreteDistribution freq0 freq1 freq2 ...
- *
- *  Reads in an array of n frequency counts from the command line,
- *  and prints out i with probability proportional to the ith
- *  frequency count.
- *
- *  // six equally likely events
- *  % java DiscreteDistribution 1 1 1 1 1 1
- *  3
- *
- *  % java DiscreteDistribution 1 1 1 1 1 1
- *  0
- *
- *  // six events, one 3x more likely than the others
- *  % java DiscreteDistribution 1 1 1 1 1 3
- *  5
- *
- *  % java DiscreteDistribution 1 1 1 1 1 3
- *  2
- *
- *  % java DiscreteDistribution 1 1 1 1 1 3
- *  5
- *
- ******************************************************************************/
-
 public class DiscreteDistribution {
+
     public static void main(String[] args) {
-
-        // read in frequency of occurrence of n values
         int n = args.length;
-        int[] freq = new int[n];
-        for (int i = 0; i < n; i++) {
-            freq[i] = Integer.parseInt(args[i]);
+        int m = Integer.parseInt(args[0]);
+        int[] a = new int[n - 1];
+        int[] s = new int[n - 1];
+
+        for (int i = 0; i < n - 1; i++) {
+            a[i] = Integer.parseInt(args[i + 1]);
         }
 
-        // compute total count of all frequencies
-        int total = 0;
-        for (int i = 0; i < n; i++) {
-            total += freq[i];
+        s[0] = a[0];
+        for (int i = 1; i < n - 1; i++) {
+            s[i] = s[i - 1] + a[i];
         }
 
-        // generate random integer with probability proportional to frequency
-        int r = (int) (total * Math.random());   // integer in [0, total)
-        int sum = 0;
-        int event = -1;
-        for (int i = 0; i < n && sum <= r; i++) {
-            sum += freq[i];
-            event = i;
+        for (int i = 0; i < m; i++) {
+            int r = (int) (Math.random() * s[n - 2]);
+            //System.out.println("r =" +r);
+            for (int j = 0; j < n - 1; j++) {
+                if (r < s[j]) {
+                    System.out.print(j + 1 + " ");
+                    break;
+                }
+            }
         }
-        System.out.println(event);
+
     }
 }
