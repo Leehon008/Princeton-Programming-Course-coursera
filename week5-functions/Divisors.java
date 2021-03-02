@@ -14,20 +14,65 @@ Euler’s totient function ϕ(n) is the number of integers between 1 and n that 
 */
 public class Divisors {
 
-    // Returns the greatest common divisor of a and b.
-    public static int gcd(int a, int b)
+    public static int gcd(int a, int b) {
 
-    // Returns the least common multiple of a and b.
-    public static int lcm(int a, int b)
+        if (a == 0 && b == 0) return 0;
+        int a1 = Math.abs(a);
+        int b1 = Math.abs(b);
 
-    // Returns true if a and b are relatively prime; false otherwise.
-    public static boolean areRelativelyPrime(int a, int b)
+        while (b1 != 0) {
+            int t = b1;
+            b1 = a1 % b1;
+            a1 = t;
+        }
+        return a1;
+    }
 
-    // Returns the number of integers between 1 and n that are
-    // relatively prime with n.
-    public static int totient(int n)
+    public static int lcm(int a, int b) {
 
-    // Takes two integer command-line arguments a and b and prints
-    // each function, evaluated in the format (and order) given below.
-    public static void main(String[] args)
+        if (a == 0 || b == 0) return 0;
+        int x = Math.abs(a);
+        int y = Math.abs(b);
+        int lc = (x * y) / gcd(x, y);
+
+        return lc;
+    }
+
+    public static boolean areRelativelyPrime(int a, int b) {
+        if (gcd(a, b) == 1) {
+            return true;
+        } else return false;
+    }
+
+    public static int totient(int n) {
+        if (n <= 0) return 0;
+        else {
+            int count = 0;
+            for (int i = 1; i < n; i++) {
+                if (areRelativelyPrime(i, n)) {
+                    count++;
+                }
+            }
+            return count;
+        }
+
+    }
+
+    public static void main(String[] args) {
+        int a = Integer.parseInt(args[0]);
+        int b = Integer.parseInt(args[1]);
+
+        int gc = gcd(a, b);
+        int lc = lcm(a, b);
+        boolean RP = areRelativelyPrime(a, b);
+        int eul_a = totient(a);
+        int eul_b = totient(b);
+
+        System.out.println("gcd(" + a + "," + " " + b + ")" + " = " + gc);
+        System.out.println("lcm(" + a + "," + " " + b + ")" + " = " + lc);
+        System.out.println("areRelativelyPrime(" + a + "," + " " + b + ")" + " = " + RP);
+        System.out.println("totient(" + a + ")" + " = " + eul_a);
+        System.out.println("totient(" + b + ")" + " = " + eul_b);
+
+    }
 }

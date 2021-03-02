@@ -16,22 +16,51 @@ such as between 0 and 1 or between –1 and +1.
  */
 public class ActivationFunction {
 
-    // Returns the Heaviside function of x.
-    public static double heaviside(double x)
+    public static double heaviside(double x) {
+        if (x < 0) return 0.0;
+        else if (x == 0) return 0.5;
+        else return 1.0;
 
-    // Returns the sigmoid function of x.
-    public static double sigmoid(double x)
+    }
 
-    // Returns the hyperbolic tangent of x.
-    public static double tanh(double x)
+    public static double sigmoid(double x) {
+        return 1 / (1 + (1 / Math.exp(x)));
+    }
 
-    // Returns the softsign function of x.
-    public static double softsign(double x)
+    public static double tanh(double x) {
+        if (x >= 20) {
+            return 1.0;
+        } else if (x <= -20) {
+            return -1.0;
+        }
+        double t = Math.exp(x);
+        return (t - (1 / t)) / (t + (1 / t));
+    }
 
-    // Returns the square nonlinearity function of x.
-    public static double sqnl(double x)
+    public static double softsign(double x) {
+        return x / (1 + Math.abs(x));
+    }
 
-    // Takes a double command-line argument x and prints each activation
-    // function, evaluated, in the format (and order) given below.
-    public static void main(String[] args)
+    public static double sqnl(double x) {
+        if (x <= -2) return -1.0;
+        else if (x < 0) return (x + ((x * x) / 4));
+        else if (x < 2) return (x - ((x * x) / 4));
+        else return 1.0;
+    }
+
+    public static void main(String[] args) {
+        double x = Double.parseDouble(args[0]);
+
+        double heave = heaviside(x);
+        double sig = sigmoid(x);
+        double tanh = tanh(x);
+        double soft = softsign(x);
+        double sqnl = sqnl(x);
+
+        System.out.println("heaveside(" + x + ")" + " = " + heave);
+        System.out.println("sigmoid(" + x + ")" + " = " + sig);
+        System.out.println("tanh(" + x + ")" + " = " + tanh);
+        System.out.println("softsign(" + x + ")" + " = " + soft);
+        System.out.println("sqnl(" + x + ")" + " = " + sqnl);
+    }
 }

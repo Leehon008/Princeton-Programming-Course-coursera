@@ -14,26 +14,100 @@ If one sound is longer than the other, append 0s to the shorter sound before sum
  This enables you to play two sounds simultaneously.
 Change speed. Create a new sound that changes the duration of an existing sound via resampling.
 If the existing sound has n samples, then the new sound has ⌊n/α⌋ samples for some constant α>0,
-with sample i of the new sound having the same amplitude as sample ⌊iα⌋ of the existing sound. */
+with sample i of the new sound having the same amplitude as sample ⌊iα⌋ of the existing sound.
+*/
 public class AudioCollage {
 
-    // Returns a new array that rescales a[] by a multiplicative factor of alpha.
-    public static double[] amplify(double[] a, double alpha)
+    public static double[] amplify(double[] a, double alpha) {
 
-    // Returns a new array that is the reverse of a[].
-    public static double[] reverse(double[] a)
+        double[] c = new double[a.length];
+        for (int i = 0; i < a.length; i++) {
+            c[i] = a[i] * alpha;
+        }
 
-    // Returns a new array that is the concatenation of a[] and b[].
-    public static double[] merge(double[] a, double[] b)
+        return c;
+    }
 
-    // Returns a new array that is the sum of a[] and b[],
-    // padding the shorter arrays with trailing 0s if necessary.
-    public static double[] mix(double[] a, double[] b)
+    public static double[] reverse(double[] a) {
 
-    // Returns a new array that changes the speed by the given factor.
-    public static double[] changeSpeed(double[] a, double alpha)
+        int n = a.length;
+        double[] c = new double[n];
 
-    // Creates an audio collage and plays it on standard audio.
-    // See below for the requirements.
-    public static void main(String[] args)
+        for (int i = n - 1; i >= 0; i--) {
+            c[n - i - 1] = a[i];
+        }
+
+        return c;
+    }
+
+    public static double[] merge(double[] a, double[] b) {
+        int len = a.length + b.length;
+        double[] c = new double[len];
+
+        for (int i = 0; i < len; i++) {
+            if (i < a.length) {
+                c[i] = a[i];
+            } else {
+                c[i] = b[b.length + i - len];
+            }
+        }
+        return c;
+    }
+
+    public static double[] mix(double[] a, double[] b) {
+
+        int len = a.length > b.length ? a.length : b.length;
+        double[] x = new double[len];
+        double[] y = new double[len];
+
+        for (int i = 0; i < a.length; i++) {
+            x[i] = a[i];
+        }
+
+        for (int i = 0; i < b.length; i++) {
+            y[i] = b[i];
+        }
+
+        double[] c = new double[len];
+
+        for (int i = 0; i < len; i++) {
+            c[i] = x[i] + y[i];
+        }
+
+        return c;
+    }
+
+    public static double[] changeSpeed(double[] a, double alpha) {
+        int n = a.length;
+
+        int m = (int) Math.floor(n / alpha);
+
+        double[] c = new double[m];
+
+        for (int i = 0; i < m; i++) {
+            int k = (int) Math.floor(i * alpha);
+            c[i] = a[k];
+        }
+
+        return c;
+    }
+
+    public static void main(String[] args) {
+
+        double[] A = new double[44100];
+        double[] B = new double[44100];
+
+        A = StdAudio.read("beatbox.wav");
+        B = StdAudio.read("chimes.wav");
+
+        double alpha = 1.5;
+
+        StdAudio.play(amplify(A, alpha));
+        StdAudio.play(reverse((A)));
+        StdAudio.play(merge(A, B));
+        StdAudio.play(mix(A, B));
+        StdAudio.play(changeSpeed(A, alpha));
+
+
+    }
 }
